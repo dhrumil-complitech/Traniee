@@ -49,43 +49,62 @@
     <button id="addTask">Add Task</button>
     <ul id="taskList"></ul>
   </div>
-  <script>const taskInput = document.getElementById("taskInput");
-    const addTaskButton = document.getElementById("addTask");
-    const taskList = document.getElementById("taskList");
-    
-    addTaskButton.addEventListener("click", addTask);
-    
-    function addTask() {
-      const taskText = taskInput.value.trim();
-    
-      if (taskText === "") {
-        return;
+    <script>
+      const taskInput = document.getElementById("taskInput");
+      const addTaskButton = document.getElementById("addTask");
+      const taskList = document.getElementById("taskList");
+      
+      const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+      for (const taskText of savedTasks) {
+        createTaskElement(taskText);
       }
-    
-      const taskItem = document.createElement("li");
-      taskItem.innerHTML = `
-        <span>${taskText}</span>
-        <button class="delete">Delete</button>
-        <button class="edit">Edit</button>
-      `;
-    
-      const deleteButton = taskItem.querySelector(".delete");
-      const editButton = taskItem.querySelector(".edit");
-    
-      deleteButton.addEventListener("click", () => {
-        taskList.removeChild(taskItem);
-      });
-    
-      editButton.addEventListener("click", () => {
-        const updatedTaskText = prompt("Edit task:", taskText);
-        if (updatedTaskText !== null) {
-          taskItem.querySelector("span").textContent = updatedTaskText;
+      
+      addTaskButton.addEventListener("click", addTask);
+      
+      function createTaskElement(taskText) {
+        const taskItem = document.createElement("li");
+        taskItem.innerHTML = `
+          <span>${taskText}</span>
+          <button class="delete">Delete</button>
+          <button class="edit">Edit</button>
+        `;
+      
+        const deleteButton = taskItem.querySelector(".delete");
+        const editButton = taskItem.querySelector(".edit");
+      
+        deleteButton.addEventListener("click", () => {
+          taskList.removeChild(taskItem);
+          updateLocalStorage();
+        });
+      
+        editButton.addEventListener("click", () => {
+          const updatedTaskText = prompt("Edit task:", taskText);
+          if (updatedTaskText !== null) {
+            taskItem.querySelector("span").textContent = updatedTaskText;
+            updateLocalStorage();
+          }
+        });
+      
+        taskList.appendChild(taskItem);
+      }
+      
+      function updateLocalStorage() {
+        const tasks = Array.from(taskList.querySelectorAll("li")).map(taskItem => taskItem.querySelector("span").textContent);
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+      }
+      
+      function addTask() {
+        const taskText = taskInput.value.trim();
+      
+        if (taskText === "") {
+          return;
         }
-      });
-    
-      taskList.appendChild(taskItem);
-      taskInput.value = "";
-    }
+      
+        createTaskElement(taskText);
+        updateLocalStorage();
+        
+        taskInput.value = "";
+      }
     </script>
 </body>
 </html>
