@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      body {
+        background-color:#ADC4CE;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .timer-container {
+        text-align: center;
+      }
+
+      .timer {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="timer-container">
+      <div class="timer" id="timer">00:00:00</div>
+      <button id="startButton">Start Countdown</button>
+      <button id="stopButton" disabled>Stop Countdown</button>
+      <button id="restartButton" disabled>Restart Countdown</button>
+    </div>
+
+    <script>
+      const startButton = document.getElementById("startButton");
+      const stopButton = document.getElementById("stopButton");
+      const restartButton = document.getElementById("restartButton");
+      const timerElement = document.getElementById("timer");
+
+      let countdown;
+      let timeInSeconds = 3600; 
+      let initialTime = timeInSeconds;
+
+      function updateTimer() {
+        const hours = Math.floor(timeInSeconds / 3600);
+        const minutes = Math.floor((timeInSeconds % 3600) / 60);
+        const seconds = timeInSeconds % 60;
+
+        const formattedTime = `${String(hours).padStart(2, "0")}:${String(
+          minutes
+        ).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+        timerElement.textContent = formattedTime;
+
+        if (timeInSeconds <= 0) {
+          clearInterval(countdown);
+          timerElement.textContent = "Time's up!";
+          startButton.disabled = false;
+        } else {
+          timeInSeconds--;
+        }
+      }
+
+      startButton.addEventListener("click", () => {
+        countdown = setInterval(updateTimer, 1000);
+        updateTimer();
+        startButton.disabled = true;
+        stopButton.disabled = false;
+        restartButton.disabled = false;
+      });
+
+      stopButton.addEventListener("click", () => {
+        clearInterval(countdown);
+        stopButton.disabled = true;
+        startButton.disabled = false;
+        restartButton.disabled = false;
+      });
+
+      restartButton.addEventListener("click", () => {
+        clearInterval(countdown);
+        timeInSeconds = initialTime;
+        updateTimer();
+        startButton.disabled = false;
+        stopButton.disabled = false;
+        restartButton.disabled = true;
+      });
+    </script>
+  </body>
+</html>
