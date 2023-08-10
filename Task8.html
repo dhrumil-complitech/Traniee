@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IP Information</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #C8E4B2;
+  }
+  h1 {
+    margin-top: 20px;
+  }
+  #results {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 500px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+  }
+  #results p {
+    margin: 10px 0;
+  }
+  strong {
+    display: inline-block;
+    width: 150px;
+  }
+  span {
+    font-weight: bold;
+    color: #333;
+  }
+</style>
+</head>
+<body>
+<h1>IP Information</h1>
+<div id="results">
+  <p><strong>IP Address:</strong> <span id="ip"></span></p>
+  <p><strong>City:</strong> <span id="city"></span></p>
+  <p><strong>Region:</strong> <span id="region"></span></p>
+  <p><strong>Country:</strong> <span id="country" ></span></p>
+  <p><strong>Continent:</strong> <span id="continent"></span></p>
+  <p><strong>Postal Code:</strong> <span id="postal"></span></p>
+  <p><strong>Latitude:</strong> <span id="latitude"></span></p>
+  <p><strong>Longitude:</strong> <span id="longitude"></span></p>
+  <p><strong>Timezone:</strong> <span id="timezone"></span></p>
+  <p><strong>Currency:</strong> <span id="currency"></span></p>
+</div>  
+
+<script>
+fetch('https://ipapi.co/json/')
+.then(function(response) {
+  response.json().then(jsonData => {
+    document.getElementById('ip').textContent = jsonData.ip;
+       document.getElementById('city').textContent = jsonData.city;
+       document.getElementById('region').textContent = jsonData.region;
+       document.getElementById('country').textContent = jsonData.country_name;
+       document.getElementById('continent').textContent = jsonData.continent_code   ;
+       document.getElementById('postal').textContent = jsonData.postal;
+       document.getElementById('latitude').textContent = jsonData.latitude;
+       document.getElementById('longitude').textContent = jsonData.longitude;
+       document.getElementById('timezone').textContent = jsonData.timezone;
+      document.getElementById('currency').textContent = jsonData.currency;
+  });
+})
+.catch(function(error) {
+  console.log(error)
+});
+</script>
+
+</body>
+</html>
+
