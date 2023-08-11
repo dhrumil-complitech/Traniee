@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mobile Gallery</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+*{
+  padding: 0px;
+  margin: 0px;
+}
+body{
+  background-color: #FAF3F0;
+}
+.gallery{
+  padding: 40px 0px;
+}
+img{
+  max-width: 100%;
+}
+.gallery img{
+  background: #fff;
+  padding: 15px;
+  width: 100%;
+  box-shadow: 0px 0px 15px rgba(0,0,0,0.3);
+  cursor: pointer;
+}
+#gallery-popup .modal-img{
+  width: 80%;
+}
+  </style>
+</head>
+<body>
+
+  <section class="gallery min-vh-100">
+    <div class="container-lg">
+      <h1>Mobile:</h1>
+      <div class="row gy-4 row-cols-1 row-cols-sm-2 row-cols-md-3">
+        <div class="col">
+          <img src="https://media-ik.croma.com/prod/https://media.croma.com/image/upload/v1662703105/Croma%20Assets/Communication/Mobiles/Images/261963_oqrd6j.png?tr=w-640" class="gallery-item" alt="Gallery1" width="300" height="400">
+          <h5>Iphone 14 Pro</h5>
+        </div>
+        <div class="col">
+          <img src="https://images.samsung.com/in/smartphones/galaxy-z-fold4/images/galaxy-z-fold4-share-image.jpg" class="gallery-item" alt="Gallery2" width="300" height="400">
+          <h5>Samsung Z Fold 4</h5>
+        </div>
+        <div class="col">
+          <img src="https://cdn.dxomark.com/wp-content/uploads/medias/post-129187/Samsung-Galaxy-Z-Flip4_A_featured-image-packshot-review-Recovered.jpg" class="gallery-item" alt="Gallery3" width="300" height="400">
+        <h5>Samsung Z Flip 4</h5>
+        </div>
+        <div class="col">
+          <img src="https://www.pricemarket.sk/62125-home_default/mobilny-telefon-apple-iphone-14-512gb-biely.jpg" class="gallery-item" alt="Gallery4" width="300" height="400">
+        <h5>Iphone 14</h5>
+        </div>
+        <div class="col">
+          <img src="https://bnewmobiles.com/cdn/shop/products/23ultracream_1200x1200.jpg?v=1675504904" class="gallery-item" alt="Gallery5" width="300" height="400">
+        <h5>Samsung Galaxy S23 Ultra</h5>
+        </div>
+        <div class="col">
+          <img src="https://ovantica.com/pub/media/catalog/product/cache/359e51c8e354c4e2b5af98e814f93978/s/a/samsung_note_20_256gb_black.jpg" class="gallery-item" alt="Gallery6" width="300" height="400">
+        <h5>Samsung Note20 Ultra</h5>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+<div class="modal fade" id="gallery-popup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <img src="" class="modal-img" alt="Modal Image">
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    document.addEventListener("click",function (event){
+      if(event.target.classList.contains("gallery-item")){
+          const src = e.target.getAttribute("src");
+          document.querySelector(".-modalimg").src = src;
+          const myModal = new bootstrap.Modal(document.getElementById('gallery-popup'));
+          myModal.show();
+      }
+    })
+  </script>
+</body>
+</html>
